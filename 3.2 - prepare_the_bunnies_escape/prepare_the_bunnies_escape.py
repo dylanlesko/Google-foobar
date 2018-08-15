@@ -23,19 +23,17 @@ class Node:
         graph = self.graph
 
         ##  Check Left
-        if y > 0:  
-            #print "left:    "+str(graph[x][y - 1])
-            if (graph[x][y - 1] == 1):
+        if y > 0:
+            if graph[x][y-1]:
                 if walls_destroyed < wall_allowance:
-                    neighbors.append(Node(x,y-1, walls_destroyed + 1, graph))
+                    neighbors.append(Node(x,y-1, walls_destroyed+1, graph))
             else:
-                neighbors.append(Node(x-1,y, walls_destroyed, graph))
+                neighbors.append(Node(x,y-1, walls_destroyed, graph))
         ##  Check Right
-        if y < len(graph) - 1:
-            #print "right:   " + str(graph[x][y + 1])
-            if (graph[x][y + 1] == 1):
+        if y < len(graph[0])-1:
+            if graph[x][y+1] == 1:
                 if walls_destroyed < wall_allowance:
-                    neighbors.append(Node(x,y+1, walls_destroyed + 1, graph))
+                    neighbors.append(Node(x,y+1, walls_destroyed+1, graph))
             else:
                 neighbors.append(Node(x,y+1, walls_destroyed, graph))
         ##  Check Up
@@ -43,15 +41,15 @@ class Node:
             #print "up:      " + str(graph[x - 1][y])
             if (graph[x-1][y] == 1):
                 if walls_destroyed < wall_allowance:
-                    neighbors.append(Node(x-1,y, walls_destroyed + 1, graph))
+                    neighbors.append(Node(x-1,y, walls_destroyed+1, graph))
             else:
                 neighbors.append(Node(x-1,y, walls_destroyed, graph))
         ##  Check Down
-        if x < len(graph) - 1:
+        if x < len(graph)-1:
             #print "down:    " + str(graph[x + 1][y])
             if (graph[x + 1][y] == 1):
                 if walls_destroyed < wall_allowance:
-                    neighbors.append(Node(x+1,y, walls_destroyed + 1, graph))
+                    neighbors.append(Node(x+1,y, walls_destroyed+1, graph))
             else:
                 neighbors.append(Node(x+1,y, walls_destroyed, graph))
 
@@ -86,6 +84,3 @@ class Graph:
 def answer(maze):
     graph = Graph(maze, (0,0), (len(maze) - 1, len(maze[0]) - 1))
     return graph.dfs_shortest()
-
-print answer([[0, 1, 1, 0], [0, 0, 0, 1], [1, 1, 0, 0], [1, 1, 1, 0]])
-print answer([[0, 0, 0, 0, 0, 0], [1, 1, 1, 1, 1, 0], [0, 0, 0, 0, 0, 0], [0, 1, 1, 1, 1, 1], [0, 1, 1, 1, 1, 1], [0, 0, 0, 0, 0, 0]])
