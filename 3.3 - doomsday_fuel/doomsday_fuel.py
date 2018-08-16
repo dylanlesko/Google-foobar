@@ -1,2 +1,2 @@
 def answer(m):
-    # your code here
+    return -1
